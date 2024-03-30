@@ -14,6 +14,7 @@ There are two types of Synchronisation Mechanisms
   5. Peterson Solution
 
 ##### 1. Lock variable:
+It is for n number process tring to access CS. Implemented in user mode.
 
 ![closingDoor](https://github.com/Ganesh2024/OperatingSystems/assets/90674180/66823d31-8897-4dda-9a2f-8ad7a8288834)
 
@@ -51,27 +52,48 @@ We can observe that by making step 1 and step 2 atomic then we can solve above p
 
 
 #### 2. Test_and_Set Lock:
+It is for n number process tring to access CS. Implemented in user mode.
 ``` C++
 
 //Below function will be made atomic , for that requires help from OS
-void test_and_set(int lock){
-  int x = lock;
+bool test_and_set(bool lock){ // 2
+  bool x = lock;
   lock = 1;
   return x;
 }
 
 // Entry Section
-while(test_and_set(lock)) ;
+while(test_and_set(lock)) ;  // 1
 
-// CS
+// CS                        // 3
 
 // Exit Section 
-lock = 0;
+lock = 0;                    // 4
 
 ```
 
+1. Mutual Exclusion ✅
+2. Progress ✅
+3. Bounded waiting ❌
+4. Platform Independent ❌
+
+Consider below scenario
+P0 1|P3 1(loops)| P1 2 3 4 | P3 2 3 4 | P4 ....
+
+and P1 not getting chance to enter (it is unlucky process). Therefore there is no boounded waiting
+
+![unlucky person](https://github.com/Ganesh2024/OperatingSystems/assets/90674180/756c40bf-b8a6-492b-bf43-dd5c65ce31fc)
 
 
+#### Turn Variable
+It is only for two process. Implemented in user mode.
+
+```C++
+
+
+```
+
+![sharing](https://github.com/Ganesh2024/OperatingSystems/assets/90674180/83f43fff-f7e0-404d-a9c3-27757d93a99f)
 
 
 
