@@ -34,7 +34,6 @@ lock = 0;           // 4
 Scenario:
 Two process P0 and P1 trying to access CS, then consider below order of execution
 
-| -> indicates preemption
 
 P0: 1 as initially lock = 0 , it comes out of loop, but preempted before locking the CS.
 
@@ -89,13 +88,31 @@ and P1 not getting chance to enter (it is unlucky process). Therefore there is n
 It is only for two process. Implemented in user mode.
 
 ```C++
+// for Process P0
+while(turn!=0);
 
+// CS
+
+turn = 1;
+
+// for Process P1
+while(turn!=1);
+
+// CS
+
+turn = 0;
 
 ```
 
 ![sharing](https://github.com/Ganesh2024/OperatingSystems/assets/90674180/83f43fff-f7e0-404d-a9c3-27757d93a99f)
 
+1. Mutual Exclusion ✅
+2. Progress ❌
+3. Bounded waiting ✅ (P1(completed) | P0 (preempted) | P1 (Eventhough it don't want to enter and stoping P0). | P0
+4. Platform Independent ❌
 
+
+#### Interested Variable
 
 
 
